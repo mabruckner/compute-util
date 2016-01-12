@@ -163,7 +163,27 @@ impl <D:Space,R:Space> Add<PolyBase<D,R>> for PolyBase<D,R> {
     }
 }
 
-pub type QuinticMap<D:Space,R:Space> = PolyBase<D,R>;
+pub type CubicMap<D:Space,R:Space> = PolyBase<D,R>;
+
+impl <D:Space,R:Space> CubicMap<D,R> {
+    fn thing()->Self{
+        let b:Vec<PolyBase<D,R>> = PolyBase::basis(3).collect();
+        b[0].clone() as Self
+    }
+}
+
+impl <D:Space,R:Space> Space for CubicMap<D,R> {
+    type BIter=IntoIter<Self>;
+    type CIter=IntoIter<Real>;
+    fn basis() -> IntoIter<Self> {
+        PolyBase::<D,R>::basis(3) as IntoIter<Self>
+    }
+    fn coords(&self) -> IntoIter<Real> {
+        (self as &PolyBase<D,R>).coords()
+    }
+}
+
+/*pub type QuinticMap<D:Space,R:Space> = PolyBase<D,R>;
 
 impl <D:Space,R:Space> QuinticMap<D,R> {
     fn thing()->Self{
@@ -181,4 +201,4 @@ impl <D:Space,R:Space> Space for QuinticMap<D,R> {
     fn coords(&self) -> IntoIter<Real> {
         (self as &PolyBase<D,R>).coords()
     }
-}
+}*/

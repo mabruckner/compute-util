@@ -1,6 +1,6 @@
-mod rigid;
-mod spaceread;
-mod qmap;
+pub mod rigid;
+pub mod spaceread;
+pub mod qmap;
 use rigid::{
     Space,
     Real,
@@ -9,7 +9,7 @@ use rigid::{
     LinearMap,
     C2
 };
-use qmap::{PolyBase,QuinticMap};
+use qmap::{PolyBase,CubicMap};
 extern crate rustc_serialize;
 
 use self::rustc_serialize::{Decoder,Decodable,Encoder,Encodable,json};
@@ -50,7 +50,7 @@ fn what_solve(mat : &Vec<Vec<Real>>, targ: &Vec<Real>) -> Vec<Real> {
     }
     solve_mat(&hermit,&wat)
 }
-fn wide_solve(imat : &Vec<Vec<Real>>, targ: &Vec<Real>) -> Vec<Real> {
+pub fn wide_solve(imat : &Vec<Vec<Real>>, targ: &Vec<Real>) -> Vec<Real> {
     let (w,h) = (imat[0].len(),imat.len());
     let mut mat = imat.clone();
     let mut out = targ.clone();
@@ -140,7 +140,7 @@ fn approx_solve_mat(mat : &Vec<Vec<Real>>, targ: &Vec<Real>) -> Vec<Real> {
 }
 
 //TODO!!!: take max of row for selection
-fn solve_mat(mat : &Vec<Vec<Real>>, targ : &Vec<Real>) -> Vec<Real> {
+pub fn solve_mat(mat : &Vec<Vec<Real>>, targ : &Vec<Real>) -> Vec<Real> {
     let (w,h) = (mat[0].len(),mat.len());
     let mut tab = mat.clone();
     let mut out = targ.clone();
